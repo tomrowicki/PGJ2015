@@ -13,8 +13,8 @@ public class PlayerEntity implements GameEntity {
 	private PlayerNumber playerNumber;
 	private static final float MAX_SPEED_X = 10;
 	private static final float MAX_SPEED_Y = 10;
-	private static final float MAX_ACCELERATION = 100;
-	private static final float DAMPING_FACTOR = 0.99f;
+	private static final float MAX_ACCELERATION = 10;
+	private static final float DAMPING_FACTOR = 0.01f;
 	
 	private long id = IdManager.INSTANCE.getNextId();
 
