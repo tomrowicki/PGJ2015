@@ -43,6 +43,17 @@ public class Game {
 		EntityManager.INSTANCE.addGameEntity(altar);
 		EntityManager.INSTANCE.flush();
 	}
+	
+	private void addStuff() {
+		List<PImage> images = new ArrayList<PImage>();
+		images.add(renderer.loadImage(ProcessingMain.IMAGES_DIRECTORY
+				+ "altar.png"));
+		Animation altarAnimation = new ProcessingAnimation(images);
+		altar = new Altar(new PVector(250, 250), new PVector(75, 75),
+				altarAnimation);
+		EntityManager.INSTANCE.addGameEntity(altar);
+		EntityManager.INSTANCE.flush();
+	}
 
 	public void update(double delta) {
 		clock.update(delta);

@@ -34,6 +34,11 @@ public enum EntityManager {
 		stuffs.add(stuff);
 		gameEntities.add(stuff);
 	}
+	
+	public void removeStuff(StuffEntity stuff){
+		stuffs.remove(stuff);
+		gameEntities.remove(stuff);
+	}
 
 	public Set<GameEntity> getGameEntities() {
 		return gameEntities;
