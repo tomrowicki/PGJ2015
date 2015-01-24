@@ -24,6 +24,7 @@ public class StuffEntity implements GameEntity{
 		this.position = position;
 		this.size = size;
 		this.name = name;
+		this.animation = animation;
 	}
 
 	@Override
