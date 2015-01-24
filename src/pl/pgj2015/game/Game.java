@@ -35,16 +35,19 @@ public class Game {
 
 	private void addAltar() {
 		List<PImage> images = new ArrayList<PImage>();
-		images.add(renderer.loadImage(ProcessingMain.IMAGES_DIRECTORY + "altar.png"));
+		images.add(renderer.loadImage(ProcessingMain.IMAGES_DIRECTORY
+				+ "altar.png"));
 		Animation altarAnimation = new ProcessingAnimation(images);
-		altar = new Altar(new PVector(250, 250), new PVector(75, 75), altarAnimation);
+		altar = new Altar(new PVector(250, 250), new PVector(75, 75),
+				altarAnimation);
 		EntityManager.INSTANCE.addGameEntity(altar);
 		EntityManager.INSTANCE.flush();
 	}
 
 	public void update(double delta) {
 		clock.update(delta);
-		Iterator<GameEntity> iterator = EntityManager.INSTANCE.getGameEntities().iterator();
+		Iterator<GameEntity> iterator = EntityManager.INSTANCE
+				.getGameEntities().iterator();
 		while (iterator.hasNext()) {
 			GameEntity gameEntity = iterator.next();
 			gameEntity.update(delta);
@@ -57,29 +60,31 @@ public class Game {
 		clock.setItemToBring(itemToBring);
 		altar.setItemToBring(itemToBring);
 	}
-	
-	public GameEntity getRandomStuff(){
+
+	public GameEntity getRandomStuff() {
 		return null;
 	}
 
 	public String getMessageFromHigherPower() {
 		return clock.getState();
 	}
-	
+
 	public void addPlayers() {
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
 				new PVector(100, 100), new PVector(50, 80), this);
 		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150,
 				100), new PVector(50, 80), this);
-		
-		String baseDirPlayer1 = ProcessingMain.IMAGES_DIRECTORY + "player1" + File.separator;
+
+		String baseDirPlayer1 = ProcessingMain.IMAGES_DIRECTORY + "player1"
+				+ File.separator;
 		List<PImage> images = new ArrayList<PImage>();
-		
-		for(int i = 0; i <= 4; i++){
-			PImage image = renderer.loadImage(baseDirPlayer1 + "deranged_"+i+".png");
+
+		for (int i = 0; i <= 4; i++) {
+			PImage image = renderer.loadImage(baseDirPlayer1 + "deranged_" + i
+					+ ".png");
 			images.add(image);
 		}
-		
+
 		Animation animation = new ProcessingAnimation(images);
 		player.setAnimation(animation);
 		player2.setAnimation(animation);
@@ -87,16 +92,19 @@ public class Game {
 		EntityManager.INSTANCE.addGameEntity(player2);
 		EntityManager.INSTANCE.flush();
 	}
-	
-	public  void addProjectile(PVector position, PVector acc, PlayerNumber pn, PVector size){
-		
-		PImage image = renderer.loadImage(ProcessingMain.MAIN_DIRECTORY + "melon.png");
+
+	public void addProjectile(PVector position, PVector acc, PlayerNumber pn,
+			PVector size) {
+
+		PImage image = renderer.loadImage(ProcessingMain.MAIN_DIRECTORY
+				+ "melon.png");
 		List<PImage> images = new ArrayList<PImage>();
 		images.add(image);
 		Animation animation = new ProcessingAnimation(images);
-		ProjectileEntity projectile = new ProjectileEntity(position, acc, pn, size, animation);
+		ProjectileEntity projectile = new ProjectileEntity(position, acc, pn,
+				size, animation);
 		EntityManager.INSTANCE.addGameEntity(projectile);
-		
+
 	}
 
 	public void itemDeliveredByPlayer(GameEntity player) {
