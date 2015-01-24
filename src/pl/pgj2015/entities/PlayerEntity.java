@@ -4,6 +4,7 @@ import java.util.List;
 
 import pl.pgj2015.controller.ActionKey;
 import pl.pgj2015.controller.PlayerNumber;
+import pl.pgj2015.game.Game;
 import pl.pgj2015.graphics.animation.Animation;
 import pl.pgj2015.main.ProcessingMain;
 import processing.core.PImage;
@@ -13,7 +14,7 @@ public class PlayerEntity implements GameEntity {
 	private PlayerNumber playerNumber;
 	private static final float MAX_SPEED_X = 10;
 	private static final float MAX_SPEED_Y = 10;
-	private static final float MAX_ACCELERATION = 10;
+	private static final float MAX_ACCELERATION = 7;
 	private static final float DAMPING_FACTOR = 0.01f;
 	
 	private long id = IdManager.INSTANCE.getNextId();
@@ -26,17 +27,19 @@ public class PlayerEntity implements GameEntity {
 	private Animation animation;
 	private PVector speed = new PVector(MAX_SPEED_X, MAX_SPEED_Y);
 	private boolean isFacingLeft = true;
+	Game game;
 
 	public PlayerEntity(PlayerNumber playerNumber, PVector position,
-			PVector size) {
+			PVector size, Game game) {
 		this.playerNumber = playerNumber;
 		this.position = position;
 		this.size = size;
+		this.game = game;
 	}
 	
 	public PlayerEntity(PlayerNumber playerNumber, PVector position,
-			PVector size, Animation animation) {
-		this(playerNumber, position, size);
+			PVector size, Animation animation, Game game) {
+		this(playerNumber, position, size, game);
 		this.animation = animation;
 	}
 
@@ -65,6 +68,7 @@ public class PlayerEntity implements GameEntity {
 					force = new PVector(MAX_SPEED_X, 0);
 					break;
 				case SHOOT:
+					game.addProjectile(position, acceleration, playerNumber, size);
 					break;
 				case UP:
 					force = new PVector(0, -MAX_SPEED_Y);

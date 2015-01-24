@@ -7,6 +7,7 @@ import pl.pgj2015.controller.PlayerNumber;
 import pl.pgj2015.entities.EntityManager;
 import pl.pgj2015.entities.GameEntity;
 import pl.pgj2015.entities.PlayerEntity;
+import pl.pgj2015.entities.ProjectileEntity;
 import pl.pgj2015.event.clock.Clock;
 import pl.pgj2015.event.clock.GodClock;
 import pl.pgj2015.graphics.animation.Animation;
@@ -45,9 +46,9 @@ public class Game {
 	
 	public void addPlayers() {
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
-				new PVector(100, 100), new PVector(50, 50));
+				new PVector(100, 100), new PVector(50, 50), this);
 		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150,
-				100), new PVector(50, 50));
+				100), new PVector(50, 50), this);
 
 		PImage image = renderer.loadImage(ProcessingMain.MAIN_DIRECTORY + "shokunin.png");
 		List<PImage> images = new ArrayList<PImage>();
@@ -58,6 +59,17 @@ public class Game {
 		player2.setAnimation(animation);
 		EntityManager.INSTANCE.addGameEntity(player);
 		EntityManager.INSTANCE.addGameEntity(player2);
+	}
+	
+	public  void addProjectile(PVector position, PVector acc, PlayerNumber pn, PVector size){
+		
+		PImage image = renderer.loadImage(ProcessingMain.MAIN_DIRECTORY + "melon.png");
+		List<PImage> images = new ArrayList<PImage>();
+		images.add(image);
+		Animation animation = new ProcessingAnimation(images);
+		ProjectileEntity projectile = new ProjectileEntity(position, acc, pn, size, animation);
+		EntityManager.INSTANCE.addGameEntity(projectile);
+		
 	}
 
 }
