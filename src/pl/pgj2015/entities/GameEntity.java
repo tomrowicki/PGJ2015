@@ -1,6 +1,6 @@
 package pl.pgj2015.entities;
 
-import pl.pgj2015.graphics.Animation;
+import pl.pgj2015.graphics.animation.Animation;
 import processing.core.PImage;
 import processing.core.PVector;
 
