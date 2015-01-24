@@ -14,7 +14,6 @@ public class MinimSoundPlayer implements SoundPlayer {
 
 	public MinimSoundPlayer(Minim minim) {
 		this.minim = minim;
-
 		out = minim.getLineOut();
 	}
 

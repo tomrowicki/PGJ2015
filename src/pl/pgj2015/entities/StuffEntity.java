@@ -20,7 +20,7 @@ public class StuffEntity implements GameEntity{
 	private String name;
 
 	public StuffEntity(PVector position,
-			PVector size, String name) {
+			PVector size, String name, Animation animation) {
 		this.position = position;
 		this.size = size;
 		this.name = name;

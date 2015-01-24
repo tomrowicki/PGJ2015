@@ -13,6 +13,10 @@ public class ProcessingRenderer {
 		p = parent;
 	}
 	
+	public PImage loadImage(String fileName){
+		return p.loadImage(fileName);
+	}
+	
 	public void draw(){
 		p.background(0);
 		for(GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()){

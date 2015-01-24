@@ -16,6 +16,7 @@ public enum EntityManager {
 	
 	private Set<GameEntity> gameEntities;
 	private Map<PlayerNumber, Controller> playerNumberToController;
+	private Set<StuffEntity> stuffs;
 	
 	private EntityManager(){
 		gameEntities = new HashSet<GameEntity>();
@@ -24,6 +25,12 @@ public enum EntityManager {
 			Controller controller = new KeyboardController(playerNumber);
 			playerNumberToController.put(playerNumber, controller);
 		}
+		stuffs = new HashSet<StuffEntity>();
+	}
+
+	public void addStuff(StuffEntity stuff) {
+		stuffs.add(stuff);
+		gameEntities.add(stuff);
 	}
 
 	public Set<GameEntity> getGameEntities() {

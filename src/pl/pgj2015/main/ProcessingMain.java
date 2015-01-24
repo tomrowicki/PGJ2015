@@ -2,22 +2,14 @@ package pl.pgj2015.main;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import pl.pgj2015.controller.Controller;
-import pl.pgj2015.controller.PlayerNumber;
 import pl.pgj2015.entities.EntityManager;
-import pl.pgj2015.entities.PlayerEntity;
 import pl.pgj2015.game.Game;
-import pl.pgj2015.graphics.animation.Animation;
-import pl.pgj2015.graphics.animation.ProcessingAnimation;
 import pl.pgj2015.graphics.renderer.ProcessingRenderer;
 import pl.pgj2015.sound.MinimSoundPlayer;
 import pl.pgj2015.sound.SoundPlayer;
 import processing.core.PApplet;
-import processing.core.PImage;
-import processing.core.PVector;
 import ddf.minim.Minim;
 
 public class ProcessingMain extends PApplet {
@@ -27,14 +19,12 @@ public class ProcessingMain extends PApplet {
 	public static final double MILISECONDS_IN_TIME_UNIT = 1000;
 
 	private static final String SONG_FILE = "mainTheme.mp3";
-	private static final String MAIN_DIRECTORY = System.getProperty("user.dir")
+	public static final String MAIN_DIRECTORY = System.getProperty("user.dir")
 			+ File.separator;
 
 	private SoundPlayer soundPlayer;
 	private ProcessingRenderer renderer;
-	private PlayerEntity player;
-	private PlayerEntity player2;
-	private Game game = new Game();
+	private Game game;
 	private long lastFrameTime = System.currentTimeMillis();
 
 	public void setup() {
@@ -52,7 +42,7 @@ public class ProcessingMain extends PApplet {
 		Minim minim = new Minim(this);
 		soundPlayer = new MinimSoundPlayer(minim);
 		renderer = new ProcessingRenderer(this);
-		addPlayers();
+		game = new Game(renderer);
 	}
 
 	public void draw() {
@@ -79,23 +69,6 @@ public class ProcessingMain extends PApplet {
 
 	public static void main(String[] args) {
 		PApplet.main("pl.pgj2015.main.ProcessingMain", args);
-	}
-
-	public void addPlayers() {
-		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
-				new PVector(100, 100), new PVector(50, 50));
-		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150,
-				100), new PVector(50, 50));
-
-		PImage image = loadImage(MAIN_DIRECTORY + "shokunin.png");
-		List<PImage> images = new ArrayList<PImage>();
-		images.add(image);
-
-		Animation animation = new ProcessingAnimation(images);
-		player.setAnimation(animation);
-		player2.setAnimation(animation);
-		EntityManager.INSTANCE.addGameEntity(player);
-		EntityManager.INSTANCE.addGameEntity(player2);
 	}
 
 }
