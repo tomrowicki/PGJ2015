@@ -1,4 +1,4 @@
-package pl.pgj2015.graphics;
+package pl.pgj2015.graphics.animation;
 
 import java.util.List;
 

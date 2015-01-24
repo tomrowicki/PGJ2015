@@ -3,10 +3,12 @@ package pl.pgj2015.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-public class EntityManager {
+public enum EntityManager {
+	INSTANCE;
+	
 	private Set<GameEntity> gameEntities;
 	
-	public EntityManager(){
+	private EntityManager(){
 		gameEntities = new HashSet<GameEntity>();
 	}
 
