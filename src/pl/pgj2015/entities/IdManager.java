@@ -5,8 +5,8 @@ public enum IdManager {
 	
 	private static long NEXT_ID = 0;
 	
-	public static long getNextId(){
-		synchronized (IdManager.class) {
+	public long getNextId(){
+		synchronized (this) {
 			return NEXT_ID++;
 		}
 	}
