@@ -22,7 +22,9 @@ public class ProcessingAnimation implements Animation {
 	@Override
 	public void setImages(List<PImage> images) {
 		this.images = new ArrayList<PImage>(images.size());
-		Collections.copy(this.images, images);
+		for(PImage image : images){
+			this.images.add(image);
+		}
 		currentImageIndex = 0;
 	}
 
