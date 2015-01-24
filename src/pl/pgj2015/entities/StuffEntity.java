@@ -17,11 +17,13 @@ public class StuffEntity implements GameEntity{
 	private PVector size;
 	private Animation animation;
 	private PVector speed = new PVector(0 , 0);
+	private String name;
 
 	public StuffEntity(PVector position,
-			PVector size) {
+			PVector size, String name) {
 		this.position = position;
 		this.size = size;
+		this.name = name;
 	}
 
 	@Override
@@ -90,4 +92,28 @@ public class StuffEntity implements GameEntity{
 		position = getHoldingPlayerPosition(holdingPlayerNumber).get();
 		holdingPlayerNumber = null;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public int hashCode() {
+		return getId().intValue();
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		boolean isEqual = false;
+		if(o instanceof GameEntity){
+			isEqual = (getId() == ((GameEntity)o).getId());
+		}
+		return isEqual;
+	}
+	
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import pl.pgj2015.controller.Controller;
 import pl.pgj2015.controller.PlayerNumber;
 import pl.pgj2015.entities.EntityManager;
-import pl.pgj2015.entities.GameEntity;
 import pl.pgj2015.entities.PlayerEntity;
 import pl.pgj2015.graphics.animation.Animation;
 import pl.pgj2015.graphics.animation.ProcessingAnimation;
@@ -35,8 +34,6 @@ public class ProcessingMain extends PApplet {
 	private PlayerEntity player;
 	private PlayerEntity player2;
 
-	private long lastFrameTime;
-
 	public void setup() {
 		size(GAME_WIDTH, GAME_HEIGHT);
 		startGame();
@@ -46,7 +43,6 @@ public class ProcessingMain extends PApplet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		lastFrameTime = System.currentTimeMillis();
 	}
 
 	public void startGame() {
@@ -57,10 +53,7 @@ public class ProcessingMain extends PApplet {
 	}
 
 	public void draw() {
-		for (GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()) {
-			gameEntity.update(System.currentTimeMillis() - lastFrameTime);
-		}
-		lastFrameTime = System.currentTimeMillis();
+
 		renderer.draw();
 
 	}

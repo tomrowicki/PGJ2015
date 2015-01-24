@@ -3,6 +3,7 @@ package pl.pgj2015.entities;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,6 +40,17 @@ public enum EntityManager {
 	
 	public void addGameEntity(GameEntity gameEntity){
 		gameEntities.add(gameEntity);
+	}
+	
+	public void removeGameEntity(long id){
+		Iterator<GameEntity> iterator = gameEntities.iterator();
+		while(iterator.hasNext()){
+			GameEntity gameEntity = iterator.next();
+			if(gameEntity.getId() == id){
+				iterator.remove();
+				break;
+			}
+		}
 	}
 	
 	public PlayerEntity getPlayer(PlayerNumber playerNumber){
