@@ -32,6 +32,12 @@ public class PlayerEntity implements GameEntity {
 		this.position = position;
 		this.size = size;
 	}
+	
+	public PlayerEntity(PlayerNumber playerNumber, PVector position,
+			PVector size, Animation animation) {
+		this(playerNumber, position, size);
+		this.animation = animation;
+	}
 
 	@Override
 	public void update(double delta) {

@@ -14,7 +14,11 @@ public class ProcessingAnimation implements Animation {
 	private List<PImage> images;
 	private double timeFromLastChange = 0;
 	private int currentImageIndex;
-
+	
+	public ProcessingAnimation(List<PImage> images){
+		setImages(images);
+	}
+	
 	@Override
 	public void setImages(List<PImage> images) {
 		this.images = new ArrayList<PImage>(images.size());
