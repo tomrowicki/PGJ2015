@@ -30,13 +30,13 @@ public class ProcessingMain extends PApplet {
 	private PlayerEntity player;
 
 	private static final String SONG_FILE = "mainTheme.mp3";
-
+	private static final String MAIN_DIRECTORY = System.getProperty("user.dir")
+			+ File.separator;
 	public void setup() {
 		size(GAME_WIDTH, GAME_HEIGHT);
 		startGame();
 		try {
-			soundPlayer.loadMusic(System.getProperty("user.dir")
-					+ File.separator + SONG_FILE);
+			soundPlayer.loadMusic(MAIN_DIRECTORY + SONG_FILE);
 			soundPlayer.playMusic();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class ProcessingMain extends PApplet {
 		renderer = new ProcessingRenderer(this);
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE, new PVector(100, 100), new PVector(50, 50));
 		
-		PImage image = loadImage("D:\\Dropbox\\Programming\\Java\\Eclipse Workspace\\PGJ2015\\shokunin.png");
+		PImage image = loadImage(MAIN_DIRECTORY + "shokunin.png");
 		List<PImage> images = new ArrayList<PImage>();
 		images.add(image);
 		

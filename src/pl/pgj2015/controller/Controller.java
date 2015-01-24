@@ -6,6 +6,6 @@ public interface Controller {
 	void keyPressed(int key);
 	void keyReleased(int key);
 	List<ActionKey> getKeysPressed();
-	PlayerNumber playerNumber(); 
+	PlayerNumber getPlayerNumber(); 
 	
 }

@@ -1,6 +1,7 @@
 package pl.pgj2015.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,19 +9,21 @@ public class KeyboardController implements Controller {
 
 	private PlayerNumber player;
 	private Map<Integer, ActionKey> keysMapping;
-	private Map<ActionKey, Boolean> keysPressed;
+	private Map<ActionKey, Boolean> keysPressed = new HashMap<ActionKey, Boolean>();
 	
 	public KeyboardController (PlayerNumber player){
 		
 		this.player = player;
-		ControllerConfig config = new ControllerConfig();
+		ControllerConfig config = ControllerConfig.INSTANCE;
 		config.setConfigurationForPlayer(player);
-		keysMapping = config.getKeysMapping();
+		keysMapping = config.getKeysMappingForPlayer(player);
+		for(ActionKey key : ActionKey.values()){
+			keysPressed.put(key, false);
+		}
 	}
 
 	@Override
 	public void keyPressed(int key) {
-
 		if(keysMapping.containsKey(key)){
 			keysPressed.put(keysMapping.get(key), true);
 		}
@@ -47,8 +50,7 @@ public class KeyboardController implements Controller {
 	}
 
 	@Override
-	public PlayerNumber playerNumber() {
-
+	public PlayerNumber getPlayerNumber() {
 		return player;
 	}
 }

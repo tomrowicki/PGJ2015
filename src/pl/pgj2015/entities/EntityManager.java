@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import pl.pgj2015.controller.Controller;
+import pl.pgj2015.controller.KeyboardController;
 import pl.pgj2015.controller.PlayerNumber;
 
 public enum EntityManager {
@@ -18,6 +19,10 @@ public enum EntityManager {
 	private EntityManager(){
 		gameEntities = new HashSet<GameEntity>();
 		playerNumberToController = new HashMap<PlayerNumber, Controller>();
+		for(PlayerNumber playerNumber : PlayerNumber.values()){
+			Controller controller = new KeyboardController(playerNumber);
+			playerNumberToController.put(playerNumber, controller);
+		}
 	}
 
 	public Set<GameEntity> getGameEntities() {
