@@ -21,13 +21,20 @@ public class ProjectileEntity implements GameEntity {
 	private PVector acceleration = new PVector();
 	private PlayerNumber playerNumber;
 	private Animation animation;
+	private PVector force;
 
-	public ProjectileEntity(PVector position, PVector acceleration,
-			PlayerNumber playerNumber, PVector size, Animation animation){
+	public ProjectileEntity(PVector position, PVector force,
+			PlayerNumber playerNumber, PVector size, Animation animation, boolean facingLeft){
 		
+		// TODO: spawnowaæ pocisk przed postaci¹, bior¹c pod uwagê jej zwrot
+		// TODO: wykorzystaæ force do ustalenia sposobu poruszania siê pocisku
+		// FIXME: zrobiæ coœ z losowym znikaniem obiektów
 		this.playerNumber = playerNumber;
-		this.position = position;
-		this.acceleration = acceleration;
+		float newX = position.x + 40;
+		float newY = position.y;
+		PVector projectileSpawningPosition = new PVector (newX, newY);
+		this.position = projectileSpawningPosition;
+		this.force = force;
 		this.size = size;
 		this.animation = animation;
 		id = IdManager.INSTANCE.getNextId();

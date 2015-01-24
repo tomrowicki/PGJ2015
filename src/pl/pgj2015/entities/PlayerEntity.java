@@ -87,6 +87,7 @@ public class PlayerEntity implements GameEntity {
 		List<ActionKey> keysPressed = EntityManager.INSTANCE.getControllerForPlayer(playerNumber).getKeysPressed();
 		for(ActionKey key : keysPressed){
 			PVector force = new PVector(0, 0);
+			boolean hasShot = false;
 			switch(key){
 				case DOWN:
 					force = new PVector(0, MAX_SPEED_Y);
@@ -98,13 +99,16 @@ public class PlayerEntity implements GameEntity {
 					force = new PVector(MAX_SPEED_X, 0);
 					break;
 				case SHOOT:
-					game.addProjectile(position, acceleration, playerNumber, size);
+					hasShot = true;
 					break;
 				case UP:
 					force = new PVector(0, -MAX_SPEED_Y);
 					break;
 				default:
 					break;
+			}
+			if (hasShot){
+				game.addProjectile(position.get(), force.get(), playerNumber, new PVector(20, 20), this.isFacingLeft);
 			}
 			applyForce(force);
 		}

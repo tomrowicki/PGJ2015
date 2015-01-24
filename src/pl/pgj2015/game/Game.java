@@ -120,16 +120,16 @@ public class Game {
 		EntityManager.INSTANCE.flush();
 	}
 
-	public void addProjectile(PVector position, PVector acc, PlayerNumber pn,
-			PVector size) {
+	public void addProjectile(PVector position, PVector force, PlayerNumber pn,
+			PVector size, boolean facingLeft) {
 
 		PImage image = renderer.loadImage(ProcessingMain.MAIN_DIRECTORY
 				+ "melon.png");
 		List<PImage> images = new ArrayList<PImage>();
 		images.add(image);
 		Animation animation = new ProcessingAnimation(images);
-		ProjectileEntity projectile = new ProjectileEntity(position, acc, pn,
-				size, animation);
+		ProjectileEntity projectile = new ProjectileEntity(position.get(), force.get(), pn,
+				size.get(), animation, facingLeft);
 		EntityManager.INSTANCE.addGameEntity(projectile);
 
 	}
