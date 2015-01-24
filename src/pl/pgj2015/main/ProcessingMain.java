@@ -21,7 +21,8 @@ public class ProcessingMain extends PApplet {
 	private static final String SONG_FILE = "mainTheme.mp3";
 	public static final String MAIN_DIRECTORY = System.getProperty("user.dir")
 			+ File.separator;
-
+	public static final String IMAGES_DIRECTORY = MAIN_DIRECTORY + "images"
+			+ File.separator;
 	private SoundPlayer soundPlayer;
 	private ProcessingRenderer renderer;
 	private Game game;

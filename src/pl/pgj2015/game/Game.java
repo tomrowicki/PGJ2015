@@ -1,6 +1,8 @@
 package pl.pgj2015.game;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import pl.pgj2015.controller.PlayerNumber;
@@ -30,9 +32,12 @@ public class Game {
 
 	public void update(double delta) {
 		clock.update(delta);
-		for (GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()) {
+		Iterator<GameEntity> iterator = EntityManager.INSTANCE.getGameEntities().iterator();
+		while (iterator.hasNext()) {
+			GameEntity gameEntity = iterator.next();
 			gameEntity.update(delta);
 		}
+		EntityManager.INSTANCE.flush();
 	}
 
 	public GameEntity drawNextStuff() {
@@ -49,16 +54,21 @@ public class Game {
 				new PVector(100, 100), new PVector(50, 50), this);
 		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150,
 				100), new PVector(50, 50), this);
-
-		PImage image = renderer.loadImage(ProcessingMain.MAIN_DIRECTORY + "shokunin.png");
+		
+		String baseDirPlayer1 = ProcessingMain.IMAGES_DIRECTORY + "player1" + File.separator;
 		List<PImage> images = new ArrayList<PImage>();
-		images.add(image);
-
+		
+		for(int i = 0; i <= 4; i++){
+			PImage image = renderer.loadImage(baseDirPlayer1 + "deranged_"+i+".png");
+			images.add(image);
+		}
+		
 		Animation animation = new ProcessingAnimation(images);
 		player.setAnimation(animation);
 		player2.setAnimation(animation);
 		EntityManager.INSTANCE.addGameEntity(player);
 		EntityManager.INSTANCE.addGameEntity(player2);
+		EntityManager.INSTANCE.flush();
 	}
 	
 	public  void addProjectile(PVector position, PVector acc, PlayerNumber pn, PVector size){

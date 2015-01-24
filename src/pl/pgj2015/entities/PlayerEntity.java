@@ -50,6 +50,11 @@ public class PlayerEntity implements GameEntity {
 		acceleration.mult((float) (ProcessingMain.MILISECONDS_IN_TIME_UNIT/delta));
 		acceleration.limit(MAX_ACCELERATION);
 		position.add(acceleration);
+		if(acceleration.x > 0){
+			isFacingLeft = false;
+		}else{
+			isFacingLeft = true;
+		}
 		acceleration.mult(DAMPING_FACTOR);
 	}
 	

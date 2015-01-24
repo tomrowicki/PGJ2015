@@ -7,7 +7,7 @@ import pl.pgj2015.main.ProcessingMain;
 import processing.core.PImage;
 
 public class ProcessingAnimation implements Animation {
-	private static final double UPDATES_BY_SECOND = 4;
+	private static final double UPDATES_BY_SECOND = 6;
 	private static final double ONE_FRAME_TIME = ProcessingMain.MILISECONDS_IN_TIME_UNIT
 			/ UPDATES_BY_SECOND;
 	private List<PImage> images;
@@ -31,6 +31,7 @@ public class ProcessingAnimation implements Animation {
 	public PImage getCurrentImage() {
 		if (timeFromLastChange >= ONE_FRAME_TIME) {
 			updateImageIndex();
+			timeFromLastChange = 0;
 		}
 		return images.get(currentImageIndex);
 	}
