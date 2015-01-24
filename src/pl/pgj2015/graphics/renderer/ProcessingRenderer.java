@@ -14,6 +14,7 @@ public class ProcessingRenderer {
 	}
 	
 	public void draw(){
+		p.background(0);
 		for(GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()){
 			PVector size = gameEntity.getSize();
 			PVector position = gameEntity.getPosition();
