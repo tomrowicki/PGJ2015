@@ -8,7 +8,9 @@ import java.util.List;
 import pl.pgj2015.controller.Controller;
 import pl.pgj2015.controller.PlayerNumber;
 import pl.pgj2015.entities.EntityManager;
+import pl.pgj2015.entities.GameEntity;
 import pl.pgj2015.entities.PlayerEntity;
+import pl.pgj2015.game.Game;
 import pl.pgj2015.graphics.animation.Animation;
 import pl.pgj2015.graphics.animation.ProcessingAnimation;
 import pl.pgj2015.graphics.renderer.ProcessingRenderer;
@@ -18,6 +20,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 import ddf.minim.Minim;
+import ddf.minim.ugens.Gain;
 
 public class ProcessingMain extends PApplet {
 	private static final long serialVersionUID = 619350183209013106L;
@@ -33,7 +36,9 @@ public class ProcessingMain extends PApplet {
 	private ProcessingRenderer renderer;
 	private PlayerEntity player;
 	private PlayerEntity player2;
-
+	private Game game = new Game();
+	private long lastFrameTime = System.currentTimeMillis();
+	
 	public void setup() {
 		size(GAME_WIDTH, GAME_HEIGHT);
 		startGame();
@@ -53,7 +58,10 @@ public class ProcessingMain extends PApplet {
 	}
 
 	public void draw() {
-
+		for (GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()) {
+			gameEntity.update(System.currentTimeMillis() - lastFrameTime);
+		}
+		lastFrameTime = System.currentTimeMillis();
 		renderer.draw();
 
 	}

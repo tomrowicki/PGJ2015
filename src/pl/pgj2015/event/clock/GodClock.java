@@ -54,7 +54,7 @@ public class GodClock implements Clock{
 	}
 	
 	public String getWaitingState(){
-		return "Bring me: " + objectToGet.toString();
+		return "Bring me: " + objectToGet;
 	}
 	
 	public String getCountdownState(){

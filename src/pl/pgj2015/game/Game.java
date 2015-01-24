@@ -8,14 +8,11 @@ import pl.pgj2015.event.clock.GodClock;
 public class Game {
 	private Clock clock = new GodClock(this);
 	
-	private long lastFrameTime = System.currentTimeMillis();
-	
 	public void update(double delta){
 		clock.update(delta);
 		for (GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()) {
-			gameEntity.update(System.currentTimeMillis() - lastFrameTime);
+			gameEntity.update(delta);
 		}
-		lastFrameTime = System.currentTimeMillis();
 	}
 	
 	public GameEntity drawNextStuff(){
