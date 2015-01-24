@@ -51,9 +51,9 @@ public class Game {
 	
 	public void addPlayers() {
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
-				new PVector(100, 100), new PVector(50, 50), this);
+				new PVector(100, 100), new PVector(50, 80), this);
 		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150,
-				100), new PVector(50, 50), this);
+				100), new PVector(50, 80), this);
 		
 		String baseDirPlayer1 = ProcessingMain.IMAGES_DIRECTORY + "player1" + File.separator;
 		List<PImage> images = new ArrayList<PImage>();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import pl.pgj2015.controller.ActionKey;
 import pl.pgj2015.controller.PlayerNumber;
+import pl.pgj2015.game.CollisionDetector;
 import pl.pgj2015.game.Game;
 import pl.pgj2015.graphics.animation.Animation;
 import pl.pgj2015.main.ProcessingMain;
@@ -49,7 +50,16 @@ public class PlayerEntity implements GameEntity {
 		handleKeysPressed();
 		acceleration.mult((float) (ProcessingMain.MILISECONDS_IN_TIME_UNIT/delta));
 		acceleration.limit(MAX_ACCELERATION);
+
 		position.add(acceleration);
+		
+		PVector inverseAcceleration = acceleration.get();
+		inverseAcceleration.mult(-1.f);
+		
+		boolean collide = checkForCollisions();
+		if(collide){
+			position.add(inverseAcceleration);
+		}
 		if(acceleration.x > 0){
 			isFacingLeft = false;
 		}else{
@@ -58,6 +68,16 @@ public class PlayerEntity implements GameEntity {
 		acceleration.mult(DAMPING_FACTOR);
 	}
 	
+	private boolean checkForCollisions() {
+		boolean collide = false;
+		for(GameEntity entity : EntityManager.INSTANCE.getGameEntities()){
+			if(!entity.equals(this)){
+				collide = CollisionDetector.doEntitiesCollide(this, entity);
+			}
+		}
+		return collide;
+	}
+
 	private void handleKeysPressed(){
 		List<ActionKey> keysPressed = EntityManager.INSTANCE.getControllerForPlayer(playerNumber).getKeysPressed();
 		for(ActionKey key : keysPressed){
@@ -115,7 +135,9 @@ public class PlayerEntity implements GameEntity {
 
 	@Override
 	public PImage getImage() {
-		return animation.getCurrentImage();
+		PImage currentImage = animation.getCurrentImage();
+		currentImage.resize((int)size.x, (int)size.y);
+		return currentImage;
 	}
 
 	@Override
