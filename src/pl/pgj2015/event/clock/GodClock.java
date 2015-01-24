@@ -30,7 +30,7 @@ public class GodClock implements Clock {
 			if (timer < 0) {
 				clockState = ClockState.WAITING;
 			}
-			objectToGet = game.drawNextStuff();
+			game.drawNextStuff();
 		} else {
 			timer = COUNTDOWN_TIME;
 		}
@@ -60,6 +60,11 @@ public class GodClock implements Clock {
 
 	public String getCountdownState() {
 		return "Time left: " + timer;
+	}
+
+	@Override
+	public void setItemToBring(GameEntity item) {
+		objectToGet = item;
 	}
 
 }

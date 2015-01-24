@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import pl.pgj2015.controller.PlayerNumber;
+import pl.pgj2015.entities.Altar;
 import pl.pgj2015.entities.EntityManager;
 import pl.pgj2015.entities.GameEntity;
 import pl.pgj2015.entities.PlayerEntity;
@@ -21,6 +22,7 @@ import processing.core.PVector;
 
 public class Game {
 	private Clock clock = new GodClock(this);
+	private Altar altar;
 	private ProcessingRenderer renderer;
 	private PlayerEntity player;
 	private PlayerEntity player2;
@@ -28,6 +30,16 @@ public class Game {
 	public Game(ProcessingRenderer renderer) {
 		this.renderer = renderer;
 		addPlayers();
+		addAltar();
+	}
+
+	private void addAltar() {
+		List<PImage> images = new ArrayList<PImage>();
+		images.add(renderer.loadImage(ProcessingMain.IMAGES_DIRECTORY + "altar.png"));
+		Animation altarAnimation = new ProcessingAnimation(images);
+		altar = new Altar(new PVector(250, 250), new PVector(75, 75), altarAnimation);
+		EntityManager.INSTANCE.addGameEntity(altar);
+		EntityManager.INSTANCE.flush();
 	}
 
 	public void update(double delta) {
@@ -40,8 +52,13 @@ public class Game {
 		EntityManager.INSTANCE.flush();
 	}
 
-	public GameEntity drawNextStuff() {
-		// TODO: Implement logic
+	public void drawNextStuff() {
+		GameEntity itemToBring = getRandomStuff();
+		clock.setItemToBring(itemToBring);
+		altar.setItemToBring(itemToBring);
+	}
+	
+	public GameEntity getRandomStuff(){
 		return null;
 	}
 
@@ -80,6 +97,10 @@ public class Game {
 		ProjectileEntity projectile = new ProjectileEntity(position, acc, pn, size, animation);
 		EntityManager.INSTANCE.addGameEntity(projectile);
 		
+	}
+
+	public void itemDeliveredByPlayer(GameEntity player) {
+		drawNextStuff();
 	}
 
 }
