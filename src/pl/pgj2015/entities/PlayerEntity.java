@@ -25,6 +25,7 @@ public class PlayerEntity implements GameEntity {
 	private PVector size;
 	private Animation animation;
 	private PVector speed = new PVector(MAX_SPEED_X, MAX_SPEED_Y);
+	private boolean isFacingLeft = true;
 
 	public PlayerEntity(PlayerNumber playerNumber, PVector position,
 			PVector size) {
@@ -136,6 +137,14 @@ public class PlayerEntity implements GameEntity {
 	@Override
 	public Long getId() {
 		return id;
+	}
+
+	public boolean isFacingLeft() {
+		return isFacingLeft;
+	}
+
+	public void setFacingLeft(boolean isFacingLeft) {
+		this.isFacingLeft = isFacingLeft;
 	}
 
 }

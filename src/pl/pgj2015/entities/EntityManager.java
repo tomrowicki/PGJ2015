@@ -40,4 +40,17 @@ public enum EntityManager {
 	public void addGameEntity(GameEntity gameEntity){
 		gameEntities.add(gameEntity);
 	}
+	
+	public PlayerEntity getPlayer(PlayerNumber playerNumber){
+		PlayerEntity player = null;
+		for(GameEntity gameEntity : gameEntities){
+			if(gameEntity instanceof PlayerEntity){
+				if(playerNumber == ((PlayerEntity) gameEntity).getPlayerNumber()){
+					player = (PlayerEntity) gameEntity;
+					break;
+				}
+			}
+		}
+		return player;
+	}
 }
