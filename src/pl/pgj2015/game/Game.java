@@ -19,4 +19,8 @@ public class Game {
 		//TODO: Implement logic
 		return null;
 	}
+	
+	public String getMessageFromHigherPower(){
+		return clock.getState();
+	}
 }
