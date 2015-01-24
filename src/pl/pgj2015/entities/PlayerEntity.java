@@ -77,12 +77,30 @@ public class PlayerEntity implements GameEntity {
 
 	@Override
 	public PVector getPosition() {
+		
+		if (position.x < 0){
+			position.x = ProcessingMain.GAME_WIDTH;
+		}
+		else if (position.x > ProcessingMain.GAME_WIDTH){
+			position.x = 0;
+		}
+		if (position.y < 0){
+			position.y = ProcessingMain.GAME_HEIGHT;
+		}
+		else if (position.y > ProcessingMain.GAME_HEIGHT){
+			position.y = 0;
+		}
+		 
 		return position;
 	}
 
 	@Override
 	public PVector getSize() {
 		return size;
+	}
+	
+	public PlayerNumber getPlayerNumber(){
+		return playerNumber;
 	}
 
 	@Override
