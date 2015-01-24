@@ -29,6 +29,7 @@ public class ProcessingMain extends PApplet {
 	private SoundPlayer soundPlayer;
 	private ProcessingRenderer renderer;
 	private PlayerEntity player;
+	private PlayerEntity player2;
 
 	private static final String SONG_FILE = "mainTheme.mp3";
 	private static final String MAIN_DIRECTORY = System.getProperty("user.dir")
@@ -49,6 +50,8 @@ public class ProcessingMain extends PApplet {
 		soundPlayer = new MinimSoundPlayer(minim);
 		renderer = new ProcessingRenderer(this);
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE, new PVector(100, 100), new PVector(50, 50));
+		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150, 100), new PVector(50, 50));
+
 		
 		PImage image = loadImage(MAIN_DIRECTORY + "shokunin.png");
 		List<PImage> images = new ArrayList<PImage>();
@@ -56,7 +59,9 @@ public class ProcessingMain extends PApplet {
 		
 		Animation animation = new ProcessingAnimation(images);
 		player.setAnimation(animation);
+		player2.setAnimation(animation);
 		EntityManager.INSTANCE.addGameEntity(player);
+		EntityManager.INSTANCE.addGameEntity(player2);
 	}
 
 	public void draw() {

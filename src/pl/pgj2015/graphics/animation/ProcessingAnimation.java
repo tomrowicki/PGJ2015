@@ -1,7 +1,6 @@
 package pl.pgj2015.graphics.animation;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import pl.pgj2015.main.ProcessingMain;

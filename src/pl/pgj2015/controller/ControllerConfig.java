@@ -30,10 +30,10 @@ public enum ControllerConfig {
 			 * left arrow: 37 up arrow: 38 right arrow: 39 down arrow: 40
 			 */
 			Map<Integer, ActionKey> keysMapping = new HashMap<Integer, ActionKey>();
-			keysMapping.put(38, ActionKey.UP);
-			keysMapping.put(40, ActionKey.DOWN);
-			keysMapping.put(37, ActionKey.LEFT);
-			keysMapping.put(39, ActionKey.RIGHT);
+			keysMapping.put((int) 'i', ActionKey.UP);
+			keysMapping.put((int) 'k', ActionKey.DOWN);
+			keysMapping.put((int) 'j', ActionKey.LEFT);
+			keysMapping.put((int) 'l', ActionKey.RIGHT);
 			keysMapping.put((int) 'p', ActionKey.SHOOT);
 			config.put(player, keysMapping);
 		}
