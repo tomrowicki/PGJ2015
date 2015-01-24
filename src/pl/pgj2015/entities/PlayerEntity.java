@@ -72,7 +72,7 @@ public class PlayerEntity implements GameEntity {
 		boolean collide = false;
 		for(GameEntity entity : EntityManager.INSTANCE.getGameEntities()){
 			if(!entity.equals(this)){
-				collide = CollisionDetector.doEntitiesCollide(this, entity);
+				collide = collide || CollisionDetector.doEntitiesCollide(this, entity);
 			}
 		}
 		return collide;
