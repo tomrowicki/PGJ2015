@@ -39,6 +39,17 @@ public enum EntityManager {
 		stuffs.remove(stuff);
 		gameEntities.remove(stuff);
 	}
+	
+	public StuffEntity getStuffByName(String stuffName){
+		StuffEntity stuffToReturn = null;
+		for(StuffEntity stuff : stuffs){
+			if(stuff.getName().equals(stuffName)){
+				stuffToReturn = stuff;
+				break;
+			}
+		}
+		return stuffToReturn;
+	}
 
 	public Set<GameEntity> getGameEntities() {
 		return gameEntities;

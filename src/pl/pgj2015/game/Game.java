@@ -88,7 +88,8 @@ public class Game {
 	}
 
 	public GameEntity getRandomStuff() {
-		return null;
+		Random random = new Random();
+		return EntityManager.INSTANCE.getStuffByName(stuffNames[random.nextInt(stuffNames.length)]);
 	}
 
 	public String getMessageFromHigherPower() {
