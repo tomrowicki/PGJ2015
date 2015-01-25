@@ -19,6 +19,7 @@ public enum EntityManager {
 	private Map<PlayerNumber, Controller> playerNumberToController;
 	private Set<StuffEntity> stuffs;
 	private Set<StuffEntity> stuffToRemove;
+	private Set<GameEntity> entitesToRemove;
 	
 	private EntityManager(){
 		gameEntities = new HashSet<GameEntity>();
@@ -30,6 +31,7 @@ public enum EntityManager {
 		stuffs = new HashSet<StuffEntity>();
 		gameEntitiesToAdd = new HashSet<GameEntity>();
 		stuffToRemove = new HashSet<StuffEntity>();
+		entitesToRemove = new HashSet<GameEntity>();
 	}
 
 	public void addStuff(StuffEntity stuff) {
@@ -79,6 +81,11 @@ public enum EntityManager {
 			gameEntities.remove(stuff);
 		}
 		stuffToRemove = new HashSet<StuffEntity>();
+		
+		for(GameEntity gameEntity : entitesToRemove){
+			gameEntities.remove(gameEntity);
+		}
+		entitesToRemove = new HashSet<GameEntity>();
 	}
 	
 	public void removeGameEntity(long id){
@@ -86,7 +93,7 @@ public enum EntityManager {
 		while(iterator.hasNext()){
 			GameEntity gameEntity = iterator.next();
 			if(gameEntity.getId() == id){
-				iterator.remove();
+				entitesToRemove.add(gameEntity);
 				break;
 			}
 		}
