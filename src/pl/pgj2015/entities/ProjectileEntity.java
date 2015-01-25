@@ -39,9 +39,7 @@ animation, boolean facingLeft){
 		else if (!facingLeft){
 			newX = position.x + 100;
 		}
-		PVector projectileSpawningPosition = new PVector (newX, 
-
-position.y);
+		PVector projectileSpawningPosition = new PVector (newX, position.y);
 		this.position = projectileSpawningPosition;
 		this.force = force;
 		this.size = size;
@@ -52,9 +50,7 @@ position.y);
 	@Override
 	public void update(double delta) {
 
-		acceleration.mult((float) 
-
-(ProcessingMain.MILISECONDS_IN_TIME_UNIT/delta));
+		acceleration.mult((float) (ProcessingMain.MILISECONDS_IN_TIME_UNIT/delta));
 		acceleration.limit(MAX_ACCELERATION);
 		applyForce(force);
 		position.add(acceleration);
