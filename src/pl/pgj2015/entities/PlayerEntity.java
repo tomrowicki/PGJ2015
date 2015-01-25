@@ -88,7 +88,12 @@ public class PlayerEntity implements GameEntity {
 					if(playerNumber.equals(stuff.getHoldingPlayerNumber())){
 						collideLocal = false;
 					}
-				}else if (collideLocal && entity instanceof Altar){
+				}
+//				else if(collideLocal && entity instanceof ProjectileEntity){
+//					System.out.println("DROP");
+//					dropStuff();
+//				}
+				else if (collideLocal && entity instanceof Altar){
 					if(holdingStuff != null){
 						game.itemDroppedOnAltar(this, holdingStuff);
 						dropStuff();
@@ -233,7 +238,8 @@ public class PlayerEntity implements GameEntity {
 	public void setFacingLeft(boolean isFacingLeft) {
 		this.isFacingLeft = isFacingLeft;
 	}
-	private void dropStuff(){
+	public void dropStuff(){
+		holdingStuff.setPosition(new PVector (position.x + 100, position.y));
 		holdingStuff.droppedByPlayer();
 		holdingStuff = null;
 	}

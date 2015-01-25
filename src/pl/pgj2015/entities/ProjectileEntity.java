@@ -75,6 +75,8 @@ animation, boolean facingLeft){
 				}
 				else if (collideLocal && entity instanceof PlayerEntity){
 					collideLocal = true;
+					PlayerEntity pe = (PlayerEntity) entity;
+					pe.dropStuff();
 				}
 				collide = collide || collideLocal;
 			}
