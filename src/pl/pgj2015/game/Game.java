@@ -2,8 +2,10 @@ package pl.pgj2015.game;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import pl.pgj2015.controller.PlayerNumber;
@@ -28,22 +30,25 @@ public class Game {
 	private ProcessingRenderer renderer;
 	private PlayerEntity player;
 	private PlayerEntity player2;
-	private String[] stuffNames = {
-		"beer",
-		"chili",
-		"coke"
-	};
-
+	private List<String> stuffNames = new ArrayList<String>();
+	private static final float SCALE = 2.f;
+	private Map<PlayerNumber, Integer> points;
 	public Game(ProcessingRenderer renderer) {
 		this.renderer = renderer;
 		addPlayers();
 		addAltar();
 		addStuff();
+		points = new HashMap<PlayerNumber, Integer>();
+		points.put(PlayerNumber.PLAYER_ONE, 0);
+		points.put(PlayerNumber.PLAYER_TWO, 0);
 	}
 
 	private void addStuff() {
-		for(int i = 0 ; i < stuffNames.length; i++){
-			addStuffByName(stuffNames[i]);
+		stuffNames.add("beer");
+		stuffNames.add("chili");
+		stuffNames.add("coke");
+		for(String stuffName : stuffNames){
+			addStuffByName(stuffName);
 		}
 	}
 
@@ -52,7 +57,9 @@ public class Game {
 		images.add(renderer.loadImage(ProcessingMain.IMAGES_DIRECTORY
 				+ "altar.png"));
 		Animation altarAnimation = new ProcessingAnimation(images);
-		altar = new Altar(new PVector(250, 250), new PVector(75, 75),
+		Random random = new Random();
+		PVector position = new PVector(random.nextInt(ProcessingMain.GAME_WIDTH), random.nextInt(ProcessingMain.GAME_HEIGHT));
+		altar = new Altar(position, new PVector(75 * SCALE, 75 * SCALE),
 				altarAnimation);
 		EntityManager.INSTANCE.addGameEntity(altar);
 		EntityManager.INSTANCE.flush();
@@ -65,7 +72,7 @@ public class Game {
 		Animation animation = new ProcessingAnimation(images);
 		Random random = new Random();
 		PVector position = new PVector(random.nextInt(ProcessingMain.GAME_WIDTH), random.nextInt(ProcessingMain.GAME_HEIGHT));
-		StuffEntity stuff = new StuffEntity(position, new PVector(50, 50), stuffName, animation);
+		StuffEntity stuff = new StuffEntity(position, new PVector(50 * SCALE, 50 * SCALE), stuffName, animation);
 		EntityManager.INSTANCE.addStuff(stuff);
 		EntityManager.INSTANCE.flush();
 	}
@@ -89,7 +96,7 @@ public class Game {
 
 	public GameEntity getRandomStuff() {
 		Random random = new Random();
-		return EntityManager.INSTANCE.getStuffByName(stuffNames[random.nextInt(stuffNames.length)]);
+		return EntityManager.INSTANCE.getStuffByName(stuffNames.get(random.nextInt(stuffNames.size())));
 	}
 
 	public String getMessageFromHigherPower() {
@@ -98,9 +105,9 @@ public class Game {
 
 	public void addPlayers() {
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
-				new PVector(100, 100), new PVector(50, 80), this);
+				new PVector(100, 100), new PVector(50 * SCALE, 80 * SCALE), this);
 		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150,
-				100), new PVector(50, 80), this);
+				100), new PVector(50 * SCALE, 80 * SCALE), this);
 
 		String baseDirPlayer1 = ProcessingMain.IMAGES_DIRECTORY + "player1"
 				+ File.separator;
@@ -134,8 +141,12 @@ public class Game {
 
 	}
 
-	public void itemDeliveredByPlayer(GameEntity player) {
-		drawNextStuff();
+	public void itemDeliveredByPlayer(GameEntity player, StuffEntity stuff) {
+		EntityManager.INSTANCE.removeStuff(stuff);
+		clock.setStateToCountdown();
 	}
-
+	
+	public void itemDroppedOnAltar(GameEntity player, StuffEntity stuff){
+		altar.itemDelivered(stuff, player, this);
+	}
 }

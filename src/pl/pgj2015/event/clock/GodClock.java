@@ -67,4 +67,9 @@ public class GodClock implements Clock {
 		objectToGet = item;
 	}
 
+	@Override
+	public void setStateToCountdown() {
+		clockState = ClockState.COUNTDOWN;
+	}
+
 }

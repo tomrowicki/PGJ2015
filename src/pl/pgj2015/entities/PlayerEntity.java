@@ -29,6 +29,7 @@ public class PlayerEntity implements GameEntity {
 	private PVector speed = new PVector(MAX_SPEED_X, MAX_SPEED_Y);
 	private boolean isFacingLeft = true;
 	Game game;
+	private StuffEntity holdingStuff = null;
 
 	public PlayerEntity(PlayerNumber playerNumber, PVector position,
 			PVector size, Game game) {
@@ -73,11 +74,21 @@ public class PlayerEntity implements GameEntity {
 		for(GameEntity entity : EntityManager.INSTANCE.getGameEntities()){
 			if(!entity.equals(this)){
 				boolean collideLocal = CollisionDetector.doEntitiesCollide(this, entity);
-				collide = collide || collideLocal;
-				if(collideLocal && entity instanceof StuffEntity){
+				if(collideLocal && entity instanceof StuffEntity && holdingStuff != null){
 					StuffEntity stuff = (StuffEntity) entity;
 					stuff.grabbedByPlayer(playerNumber);
+					holdingStuff = stuff;
+					if(playerNumber.equals(stuff.getHoldingPlayerNumber())){
+						collideLocal = false;
+					}
+				}else if (collideLocal && entity instanceof Altar){
+					if(holdingStuff != null){
+						game.itemDroppedOnAltar(this, holdingStuff);
+						dropStuff();
+					}
+					collideLocal = false; //Altar spawns in random place, player doesnt collide with it
 				}
+				collide = collide || collideLocal;
 			}
 		}
 		return collide;
@@ -186,5 +197,8 @@ public class PlayerEntity implements GameEntity {
 	public void setFacingLeft(boolean isFacingLeft) {
 		this.isFacingLeft = isFacingLeft;
 	}
-
+	private void dropStuff(){
+		holdingStuff.droppedByPlayer();
+		holdingStuff = null;
+	}
 }

@@ -5,5 +5,6 @@ import pl.pgj2015.entities.GameEntity;
 public interface Clock {
 	void update(double delta);
 	String getState();
+	void setStateToCountdown();
 	void setItemToBring(GameEntity item);
 }

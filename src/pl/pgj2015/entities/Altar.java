@@ -73,9 +73,9 @@ public class Altar implements GameEntity{
 		this.itemToBring = itemToBring;
 	}
 	
-	public void itemDelivered(GameEntity item, GameEntity player, Game game){
+	public void itemDelivered(StuffEntity item, GameEntity player, Game game){
 		if(item.equals(itemToBring)){
-			game.itemDeliveredByPlayer(player);
+			game.itemDeliveredByPlayer(player, item);
 		}
 	}
 

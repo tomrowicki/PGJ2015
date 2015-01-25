@@ -117,4 +117,8 @@ public class StuffEntity implements GameEntity{
 		return isEqual;
 	}
 	
+	public PlayerNumber getHoldingPlayerNumber(){
+		return holdingPlayerNumber;
+	}
+	
 }

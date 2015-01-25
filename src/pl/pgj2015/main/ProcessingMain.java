@@ -14,8 +14,8 @@ import ddf.minim.Minim;
 
 public class ProcessingMain extends PApplet {
 	private static final long serialVersionUID = 619350183209013106L;
-	public static final int GAME_WIDTH = 800;
-	public static final int GAME_HEIGHT = 500;
+	public static final int GAME_WIDTH = 1200;
+	public static final int GAME_HEIGHT = 700;
 	public static final double MILISECONDS_IN_TIME_UNIT = 1000;
 
 	private static final String SONG_FILE = "mainTheme.mp3";
