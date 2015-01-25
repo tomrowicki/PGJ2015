@@ -53,8 +53,6 @@ public class ProcessingMain extends PApplet {
 		game.update(System.currentTimeMillis() - lastFrameTime);
 		lastFrameTime = System.currentTimeMillis();
 		renderer.draw();
-		textMode(CENTER);
-		text(game.getMessageFromHigherPower(), GAME_WIDTH / 2 - 100, 50);
 	}
 
 	@Override

@@ -14,12 +14,16 @@ public class ProcessingRenderer {
 	private PApplet p;
 	private PImage background;
 	private Map<PlayerNumber, Integer> points;
-	
+	boolean gameHasEnded = false;
+	private PImage endingImage;
+	private String messageFromHigherPower = null;
 	
 	public ProcessingRenderer(PApplet parent){
 		p = parent;
 		background = p.loadImage(ProcessingMain.IMAGES_DIRECTORY + "bgd.jpg" );
 		background.resize(ProcessingMain.GAME_WIDTH, ProcessingMain.GAME_HEIGHT);
+		endingImage = loadImage(ProcessingMain.IMAGES_DIRECTORY + "outro.jpg");
+		endingImage.resize(ProcessingMain.GAME_WIDTH, ProcessingMain.GAME_HEIGHT);
 	}
 	
 	public PImage loadImage(String fileName){
@@ -27,15 +31,20 @@ public class ProcessingRenderer {
 	}
 	
 	public void draw(){
-		p.background(background);
-		for(GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()){
-			PVector size = gameEntity.getSize();
-			PVector position = gameEntity.getPosition();
-			p.imageMode(PApplet.CENTER);
-			PImage image = gameEntity.getImage();
-			p.image(image, position.x, position.y, size.x, size.y);
+		if(gameHasEnded){
+			p.background(endingImage);
+		}else{
+			p.background(background);
+			for(GameEntity gameEntity : EntityManager.INSTANCE.getGameEntities()){
+				PVector size = gameEntity.getSize();
+				PVector position = gameEntity.getPosition();
+				p.imageMode(PApplet.CENTER);
+				PImage image = gameEntity.getImage();
+				p.image(image, position.x, position.y, size.x, size.y);
+			}
+			drawPoints();
+			p.text(messageFromHigherPower, ProcessingMain.GAME_WIDTH / 2 - 100, 50);
 		}
-		drawPoints();
 	}
 	
 	private void drawPoints(){
@@ -47,5 +56,12 @@ public class ProcessingRenderer {
 
 	public void setPoints(Map<PlayerNumber, Integer> points) {
 		this.points = points;
+	}
+	
+	public void gameEnded(){
+		gameHasEnded = true;
+	}
+	public void setMessage(String message){
+		messageFromHigherPower = message;
 	}
 }

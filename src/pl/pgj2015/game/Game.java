@@ -89,14 +89,19 @@ public class Game {
 	}
 
 	public void update(double delta) {
-		clock.update(delta);
-		Iterator<GameEntity> iterator = EntityManager.INSTANCE
-				.getGameEntities().iterator();
-		while (iterator.hasNext()) {
-			GameEntity gameEntity = iterator.next();
-			gameEntity.update(delta);
+		if (stuffNames.size() != 0) {
+			clock.update(delta);
+			renderer.setMessage(clock.getState());
+			Iterator<GameEntity> iterator = EntityManager.INSTANCE
+					.getGameEntities().iterator();
+			while (iterator.hasNext()) {
+				GameEntity gameEntity = iterator.next();
+				gameEntity.update(delta);
+			}
+			EntityManager.INSTANCE.flush();
+		} else {
+			renderer.gameEnded();
 		}
-		EntityManager.INSTANCE.flush();
 	}
 
 	public void drawNextStuff() {
@@ -119,8 +124,8 @@ public class Game {
 		PVector playerSize = new PVector(60 * SCALE * 1.5f, 80 * SCALE * 1.5f);
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
 				new PVector(100, 100), playerSize, this);
-		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(ProcessingMain.GAME_WIDTH - 150,
-				100), playerSize, this);
+		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(
+				ProcessingMain.GAME_WIDTH - 150, 100), playerSize, this);
 
 		String baseDirPlayer1 = ProcessingMain.IMAGES_DIRECTORY + "player1"
 				+ File.separator;
@@ -155,7 +160,7 @@ public class Game {
 	}
 
 	public void itemDeliveredByPlayer(GameEntity player, StuffEntity stuff) {
-		addPointToPlayer(((PlayerEntity)player).getPlayerNumber());
+		addPointToPlayer(((PlayerEntity) player).getPlayerNumber());
 		EntityManager.INSTANCE.removeStuff(stuff);
 		stuffNames.remove(stuff.getName());
 		clock.setStateToCountdown();
@@ -164,12 +169,12 @@ public class Game {
 	public void itemDroppedOnAltar(GameEntity player, StuffEntity stuff) {
 		altar.itemDelivered(stuff, player, this);
 	}
-	
-	public boolean canPlayersGrabbStuff(){
+
+	public boolean canPlayersGrabbStuff() {
 		return clock.isInCountdown();
 	}
-	
-	public void addPointToPlayer(PlayerNumber playerNumber){
+
+	public void addPointToPlayer(PlayerNumber playerNumber) {
 		Integer pointsForPlayer = points.get(playerNumber);
 		pointsForPlayer += 1;
 		points.put(playerNumber, pointsForPlayer);
