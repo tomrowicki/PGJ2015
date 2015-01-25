@@ -6,7 +6,7 @@ import pl.pgj2015.main.ProcessingMain;
 
 public class GodClock implements Clock {
 
-	private static final double COUNTDOWN_TIME = 10 * ProcessingMain.MILISECONDS_IN_TIME_UNIT;
+	private static final double COUNTDOWN_TIME = 5 * ProcessingMain.MILISECONDS_IN_TIME_UNIT;
 
 	private enum ClockState {
 		COUNTDOWN, WAITING;
@@ -70,6 +70,11 @@ public class GodClock implements Clock {
 	@Override
 	public void setStateToCountdown() {
 		clockState = ClockState.COUNTDOWN;
+	}
+
+	@Override
+	public boolean isInCountdown() {
+		return clockState == ClockState.COUNTDOWN;
 	}
 
 }

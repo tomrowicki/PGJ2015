@@ -7,4 +7,5 @@ public interface Clock {
 	String getState();
 	void setStateToCountdown();
 	void setItemToBring(GameEntity item);
+	boolean isInCountdown();
 }

@@ -33,6 +33,7 @@ public class Game {
 	private List<String> stuffNames = new ArrayList<String>();
 	private static final float SCALE = 2.f;
 	private Map<PlayerNumber, Integer> points;
+
 	public Game(ProcessingRenderer renderer) {
 		this.renderer = renderer;
 		addPlayers();
@@ -47,7 +48,10 @@ public class Game {
 		stuffNames.add("beer");
 		stuffNames.add("chili");
 		stuffNames.add("coke");
-		for(String stuffName : stuffNames){
+		stuffNames.add("cheese");
+		stuffNames.add("corn");
+		stuffNames.add("lays");
+		for (String stuffName : stuffNames) {
 			addStuffByName(stuffName);
 		}
 	}
@@ -58,7 +62,9 @@ public class Game {
 				+ "altar.png"));
 		Animation altarAnimation = new ProcessingAnimation(images);
 		Random random = new Random();
-		PVector position = new PVector(random.nextInt(ProcessingMain.GAME_WIDTH), random.nextInt(ProcessingMain.GAME_HEIGHT));
+		PVector position = new PVector(
+				random.nextInt(ProcessingMain.GAME_WIDTH),
+				random.nextInt(ProcessingMain.GAME_HEIGHT));
 		altar = new Altar(position, new PVector(75 * SCALE, 75 * SCALE),
 				altarAnimation);
 		EntityManager.INSTANCE.addGameEntity(altar);
@@ -67,12 +73,16 @@ public class Game {
 
 	private void addStuffByName(String stuffName) {
 		List<PImage> images = new ArrayList<PImage>();
-		images.add(renderer.loadImage(ProcessingMain.IMAGES_DIRECTORY + File.separator +"stuff" + File.separator
-				+ stuffName + ".png"));
+		images.add(renderer.loadImage(ProcessingMain.IMAGES_DIRECTORY
+				+ File.separator + "stuff" + File.separator + stuffName
+				+ ".png"));
 		Animation animation = new ProcessingAnimation(images);
 		Random random = new Random();
-		PVector position = new PVector(random.nextInt(ProcessingMain.GAME_WIDTH), random.nextInt(ProcessingMain.GAME_HEIGHT));
-		StuffEntity stuff = new StuffEntity(position, new PVector(50 * SCALE, 50 * SCALE), stuffName, animation);
+		PVector position = new PVector(
+				random.nextInt(ProcessingMain.GAME_WIDTH),
+				random.nextInt(ProcessingMain.GAME_HEIGHT));
+		StuffEntity stuff = new StuffEntity(position, new PVector(50 * SCALE,
+				50 * SCALE), stuffName, animation);
 		EntityManager.INSTANCE.addStuff(stuff);
 		EntityManager.INSTANCE.flush();
 	}
@@ -96,7 +106,8 @@ public class Game {
 
 	public GameEntity getRandomStuff() {
 		Random random = new Random();
-		return EntityManager.INSTANCE.getStuffByName(stuffNames.get(random.nextInt(stuffNames.size())));
+		return EntityManager.INSTANCE.getStuffByName(stuffNames.get(random
+				.nextInt(stuffNames.size())));
 	}
 
 	public String getMessageFromHigherPower() {
@@ -104,10 +115,11 @@ public class Game {
 	}
 
 	public void addPlayers() {
+		PVector playerSize = new PVector(50 * SCALE * 1.5f, 80 * SCALE * 1.5f);
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
-				new PVector(100, 100), new PVector(50 * SCALE, 80 * SCALE), this);
-		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(150,
-				100), new PVector(50 * SCALE, 80 * SCALE), this);
+				new PVector(100, 100), playerSize, this);
+		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(ProcessingMain.GAME_WIDTH - 150,
+				100), playerSize, this);
 
 		String baseDirPlayer1 = ProcessingMain.IMAGES_DIRECTORY + "player1"
 				+ File.separator;
@@ -135,18 +147,23 @@ public class Game {
 		List<PImage> images = new ArrayList<PImage>();
 		images.add(image);
 		Animation animation = new ProcessingAnimation(images);
-		ProjectileEntity projectile = new ProjectileEntity(position.get(), force.get(), pn,
-				size.get(), animation, facingLeft);
+		ProjectileEntity projectile = new ProjectileEntity(position.get(),
+				force.get(), pn, size.get(), animation, facingLeft);
 		EntityManager.INSTANCE.addGameEntity(projectile);
 
 	}
 
 	public void itemDeliveredByPlayer(GameEntity player, StuffEntity stuff) {
 		EntityManager.INSTANCE.removeStuff(stuff);
+		stuffNames.remove(stuff.getName());
 		clock.setStateToCountdown();
 	}
-	
-	public void itemDroppedOnAltar(GameEntity player, StuffEntity stuff){
+
+	public void itemDroppedOnAltar(GameEntity player, StuffEntity stuff) {
 		altar.itemDelivered(stuff, player, this);
+	}
+	
+	public boolean canPlayersGrabbStuff(){
+		return clock.isInCountdown();
 	}
 }
