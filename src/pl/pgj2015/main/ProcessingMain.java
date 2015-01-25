@@ -10,6 +10,7 @@ import pl.pgj2015.graphics.renderer.ProcessingRenderer;
 import pl.pgj2015.sound.MinimSoundPlayer;
 import pl.pgj2015.sound.SoundPlayer;
 import processing.core.PApplet;
+import processing.core.PFont;
 import ddf.minim.Minim;
 
 public class ProcessingMain extends PApplet {
@@ -27,8 +28,10 @@ public class ProcessingMain extends PApplet {
 	private ProcessingRenderer renderer;
 	private Game game;
 	private long lastFrameTime = System.currentTimeMillis();
+	PFont font = createFont(MAIN_DIRECTORY + "HARNGTON.TTF", 48);
 
 	public void setup() {
+		textFont(font, 48);
 		size(GAME_WIDTH, GAME_HEIGHT);
 		startGame();
 		try {
@@ -51,7 +54,7 @@ public class ProcessingMain extends PApplet {
 		lastFrameTime = System.currentTimeMillis();
 		renderer.draw();
 		textMode(CENTER);
-		text(game.getMessageFromHigherPower(), GAME_WIDTH / 2, 50);
+		text(game.getMessageFromHigherPower(), GAME_WIDTH / 2 - 100, 50);
 	}
 
 	@Override

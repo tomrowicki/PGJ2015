@@ -40,7 +40,7 @@ public class ProcessingRenderer {
 	
 	private void drawPoints(){
 		p.textMode(PApplet.CENTER);
-		p.textSize(32);
+		//p.textSize(32);
 		p.text( points.get(PlayerNumber.PLAYER_ONE), 50, ProcessingMain.GAME_HEIGHT - 50);
 		p.text( points.get(PlayerNumber.PLAYER_TWO), ProcessingMain.GAME_WIDTH - 50, ProcessingMain.GAME_HEIGHT - 50);
 	}
