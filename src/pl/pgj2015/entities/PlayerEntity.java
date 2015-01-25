@@ -34,6 +34,7 @@ public class PlayerEntity implements GameEntity {
 	private boolean isFacingLeft = true;
 	Game game;
 	private StuffEntity holdingStuff = null;
+	private long shotTime = System.nanoTime();
 
 	public PlayerEntity(PlayerNumber playerNumber, PVector position,
 			PVector size, Game game) {
@@ -132,7 +133,11 @@ public class PlayerEntity implements GameEntity {
 					break;
 			}
 			if (hasShot){
-				game.addProjectile(position.get(), force.get(), playerNumber, new PVector(20, 20), this.isFacingLeft);
+				if (System.nanoTime() - shotTime > 4000){
+					game.addProjectile(position.get(), force.get(), playerNumber, new PVector(20, 20), this.isFacingLeft);
+					shotTime = System.nanoTime();
+					hasShot = false;
+				}
 			}
 			applyForce(force);
 		}
