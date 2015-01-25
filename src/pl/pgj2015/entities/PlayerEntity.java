@@ -74,10 +74,12 @@ public class PlayerEntity implements GameEntity {
 		for(GameEntity entity : EntityManager.INSTANCE.getGameEntities()){
 			if(!entity.equals(this)){
 				boolean collideLocal = CollisionDetector.doEntitiesCollide(this, entity);
-				if(collideLocal && entity instanceof StuffEntity && holdingStuff != null){
+				if(collideLocal && entity instanceof StuffEntity){
 					StuffEntity stuff = (StuffEntity) entity;
-					stuff.grabbedByPlayer(playerNumber);
-					holdingStuff = stuff;
+					if(holdingStuff == null){
+						stuff.grabbedByPlayer(playerNumber);
+						holdingStuff = stuff;
+					}
 					if(playerNumber.equals(stuff.getHoldingPlayerNumber())){
 						collideLocal = false;
 					}
