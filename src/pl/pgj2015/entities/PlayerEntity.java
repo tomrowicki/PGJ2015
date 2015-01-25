@@ -142,7 +142,6 @@ public class PlayerEntity implements GameEntity {
 			}
 			if (hasShot){
 				if (System.currentTimeMillis() - shotTime > 4000){
-					System.out.println(System.nanoTime() - shotTime);
 					game.addProjectile(position.get(), projectileForce, playerNumber, new PVector(20, 20), this.isFacingLeft);
 					shotTime = System.currentTimeMillis();
 					hasShot = false;
