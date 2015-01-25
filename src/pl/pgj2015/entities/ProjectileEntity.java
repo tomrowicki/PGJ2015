@@ -1,6 +1,7 @@
 package pl.pgj2015.entities;
 
 import pl.pgj2015.controller.PlayerNumber;
+import pl.pgj2015.game.CollisionDetector;
 import pl.pgj2015.graphics.animation.Animation;
 import pl.pgj2015.main.ProcessingMain;
 import processing.core.PImage;
@@ -55,7 +56,30 @@ animation, boolean facingLeft){
 		applyForce(force);
 		position.add(acceleration);
 		
+		boolean collide = checkForCollisions();
+		if(collide){
+			EntityManager.INSTANCE.removeGameEntity(id);
+		}
 		//TODO: mo¿na dorzuciæ animacjê pocisku
+	}
+	
+	private boolean checkForCollisions() {
+		boolean collide = false;
+		for(GameEntity entity : EntityManager.INSTANCE.getGameEntities()){
+			if(!entity.equals(this)){
+				boolean collideLocal = CollisionDetector.doEntitiesCollide(this, entity);
+				if(collideLocal && entity instanceof StuffEntity){
+					StuffEntity stuff = (StuffEntity) entity;
+				}else if (collideLocal && entity instanceof Altar){
+					collideLocal = true;
+				}
+				else if (collideLocal && entity instanceof PlayerEntity){
+					collideLocal = true;
+				}
+				collide = collide || collideLocal;
+			}
+		}
+		return collide;
 	}
 
 	@Override
