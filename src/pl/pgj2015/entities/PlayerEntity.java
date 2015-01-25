@@ -132,9 +132,17 @@ public class PlayerEntity implements GameEntity {
 				default:
 					break;
 			}
+			PVector projectileForce = new PVector();
+			if (isFacingLeft){
+				projectileForce.x = -10;
+			}
+			else 
+			{
+				projectileForce.x = 10;
+			}
 			if (hasShot){
 				if (System.nanoTime() - shotTime > 4000){
-					game.addProjectile(position.get(), force.get(), playerNumber, new PVector(20, 20), this.isFacingLeft);
+					game.addProjectile(position.get(), projectileForce, playerNumber, new PVector(20, 20), this.isFacingLeft);
 					shotTime = System.nanoTime();
 					hasShot = false;
 				}
