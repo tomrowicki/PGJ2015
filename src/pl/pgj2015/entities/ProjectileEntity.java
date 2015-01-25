@@ -24,7 +24,9 @@ public class ProjectileEntity implements GameEntity {
 	private PVector force;
 
 	public ProjectileEntity(PVector position, PVector force,
-			PlayerNumber playerNumber, PVector size, Animation animation, boolean facingLeft){
+			PlayerNumber playerNumber, PVector size, Animation 
+
+animation, boolean facingLeft){
 		
 		// TODO: spawnowaæ pocisk przed postaci¹, bior¹c pod uwagê jej zwrot
 		// TODO: wykorzystaæ force do ustalenia sposobu poruszania siê pocisku
@@ -37,7 +39,9 @@ public class ProjectileEntity implements GameEntity {
 		else if (!facingLeft){
 			newX = position.x + 100;
 		}
-		PVector projectileSpawningPosition = new PVector (newX, position.y);
+		PVector projectileSpawningPosition = new PVector (newX, 
+
+position.y);
 		this.position = projectileSpawningPosition;
 		this.force = force;
 		this.size = size;
@@ -48,15 +52,31 @@ public class ProjectileEntity implements GameEntity {
 	@Override
 	public void update(double delta) {
 
-		acceleration.mult((float) (ProcessingMain.MILISECONDS_IN_TIME_UNIT/delta));
-		position.add(acceleration);
+		acceleration.mult((float) 
+
+(ProcessingMain.MILISECONDS_IN_TIME_UNIT/delta));
 		acceleration.limit(MAX_ACCELERATION);
+		applyForce(force);
+		position.add(acceleration);
+		
 		//TODO: mo¿na dorzuciæ animacjê pocisku
 	}
 
 	@Override
 	public PVector getPosition() {
-
+//		if (position.x < 0){
+//			EntityManager.INSTANCE.removeGameEntity(id);
+//		}
+//		else if (position.x > ProcessingMain.GAME_WIDTH){
+//			EntityManager.INSTANCE.removeGameEntity(id);
+//		}
+//		if (position.y < 0){
+//			EntityManager.INSTANCE.removeGameEntity(id);
+//		}
+//		else if (position.y > ProcessingMain.GAME_HEIGHT){
+//			EntityManager.INSTANCE.removeGameEntity(id);
+//		}
+		
 		return position;
 	}
 
