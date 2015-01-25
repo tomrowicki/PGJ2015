@@ -30,9 +30,14 @@ public class ProjectileEntity implements GameEntity {
 		// TODO: wykorzystaæ force do ustalenia sposobu poruszania siê pocisku
 		// FIXME: zrobiæ coœ z losowym znikaniem obiektów
 		this.playerNumber = playerNumber;
-		float newX = position.x + 40;
-		float newY = position.y;
-		PVector projectileSpawningPosition = new PVector (newX, newY);
+		float newX = (position.x);
+		if (facingLeft){
+			newX = position.x - 100;
+		}
+		else if (!facingLeft){
+			newX = position.x + 100;
+		}
+		PVector projectileSpawningPosition = new PVector (newX, position.y);
 		this.position = projectileSpawningPosition;
 		this.force = force;
 		this.size = size;
