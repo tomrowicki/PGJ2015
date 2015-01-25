@@ -45,7 +45,7 @@ public class ProcessingMain extends PApplet {
 	public void startGame() {
 		Minim minim = new Minim(this);
 		soundPlayer = new MinimSoundPlayer(minim);
-		renderer = new ProcessingRenderer(this);
+		renderer = new ProcessingRenderer(this, soundPlayer);
 		game = new Game(renderer);
 	}
 
