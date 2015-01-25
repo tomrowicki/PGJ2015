@@ -42,6 +42,7 @@ public class Game {
 		points = new HashMap<PlayerNumber, Integer>();
 		points.put(PlayerNumber.PLAYER_ONE, 0);
 		points.put(PlayerNumber.PLAYER_TWO, 0);
+		renderer.setPoints(points);
 	}
 
 	private void addStuff() {
@@ -154,6 +155,7 @@ public class Game {
 	}
 
 	public void itemDeliveredByPlayer(GameEntity player, StuffEntity stuff) {
+		addPointToPlayer(((PlayerEntity)player).getPlayerNumber());
 		EntityManager.INSTANCE.removeStuff(stuff);
 		stuffNames.remove(stuff.getName());
 		clock.setStateToCountdown();
@@ -165,5 +167,11 @@ public class Game {
 	
 	public boolean canPlayersGrabbStuff(){
 		return clock.isInCountdown();
+	}
+	
+	public void addPointToPlayer(PlayerNumber playerNumber){
+		Integer pointsForPlayer = points.get(playerNumber);
+		pointsForPlayer += 1;
+		points.put(playerNumber, pointsForPlayer);
 	}
 }
