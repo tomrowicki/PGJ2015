@@ -64,8 +64,8 @@ public class Game {
 		Animation altarAnimation = new ProcessingAnimation(images);
 		Random random = new Random();
 		PVector position = new PVector(
-				random.nextInt(ProcessingMain.GAME_WIDTH),
-				random.nextInt(ProcessingMain.GAME_HEIGHT));
+				random.nextInt(ProcessingMain.GAME_WIDTH - 50),
+				random.nextInt(ProcessingMain.GAME_HEIGHT - 50));
 		altar = new Altar(position, new PVector(75 * SCALE, 75 * SCALE),
 				altarAnimation);
 		EntityManager.INSTANCE.addGameEntity(altar);
