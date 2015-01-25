@@ -116,7 +116,7 @@ public class Game {
 	}
 
 	public void addPlayers() {
-		PVector playerSize = new PVector(50 * SCALE * 1.5f, 80 * SCALE * 1.5f);
+		PVector playerSize = new PVector(60 * SCALE * 1.5f, 80 * SCALE * 1.5f);
 		player = new PlayerEntity(PlayerNumber.PLAYER_ONE,
 				new PVector(100, 100), playerSize, this);
 		player2 = new PlayerEntity(PlayerNumber.PLAYER_TWO, new PVector(ProcessingMain.GAME_WIDTH - 150,

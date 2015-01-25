@@ -5,5 +5,6 @@ public enum ActionKey {
 	DOWN,
 	LEFT,
 	RIGHT,
-	SHOOT;
+	SHOOT,
+	DROP;
 }

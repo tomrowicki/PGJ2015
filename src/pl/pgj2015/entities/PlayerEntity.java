@@ -121,6 +121,13 @@ public class PlayerEntity implements GameEntity {
 				case UP:
 					force = new PVector(0, -MAX_SPEED_Y);
 					break;
+				case DROP:
+					if(holdingStuff != null){
+						holdingStuff.setPosition(new PVector(position.x + 100, position.y));
+						holdingStuff.droppedByPlayer();
+						holdingStuff = null;
+					}
+					break;
 				default:
 					break;
 			}

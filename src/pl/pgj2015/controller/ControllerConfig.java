@@ -23,6 +23,7 @@ public enum ControllerConfig {
 			keysMapping.put((int) 'a', ActionKey.LEFT);
 			keysMapping.put((int) 'd', ActionKey.RIGHT);
 			keysMapping.put((int) 'v', ActionKey.SHOOT);
+			keysMapping.put((int) 'c', ActionKey.DROP);
 			config.put(player, keysMapping);
 		} else if (player == PlayerNumber.PLAYER_TWO) {
 
@@ -35,6 +36,7 @@ public enum ControllerConfig {
 			keysMapping.put((int) 'j', ActionKey.LEFT);
 			keysMapping.put((int) 'l', ActionKey.RIGHT);
 			keysMapping.put((int) 'p', ActionKey.SHOOT);
+			keysMapping.put((int) 'o', ActionKey.DROP);
 			config.put(player, keysMapping);
 		}
 

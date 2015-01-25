@@ -90,8 +90,12 @@ public class StuffEntity implements GameEntity{
 	}
 	
 	public void droppedByPlayer(){
-		position = getHoldingPlayerPosition(holdingPlayerNumber).get();
+		//position = getHoldingPlayerPosition(holdingPlayerNumber).get();
 		holdingPlayerNumber = null;
+	}
+	
+	public void setPosition(PVector position){
+		this.position = position;
 	}
 
 	public String getName() {
