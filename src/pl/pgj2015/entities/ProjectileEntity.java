@@ -60,18 +60,18 @@ animation, boolean facingLeft){
 
 	@Override
 	public PVector getPosition() {
-//		if (position.x < 0){
-//			EntityManager.INSTANCE.removeGameEntity(id);
-//		}
-//		else if (position.x > ProcessingMain.GAME_WIDTH){
-//			EntityManager.INSTANCE.removeGameEntity(id);
-//		}
-//		if (position.y < 0){
-//			EntityManager.INSTANCE.removeGameEntity(id);
-//		}
-//		else if (position.y > ProcessingMain.GAME_HEIGHT){
-//			EntityManager.INSTANCE.removeGameEntity(id);
-//		}
+		if (position.x < 0){
+			EntityManager.INSTANCE.removeGameEntity(id);
+		}
+		else if (position.x > ProcessingMain.GAME_WIDTH){
+			EntityManager.INSTANCE.removeGameEntity(id);
+		}
+		if (position.y < 0){
+			EntityManager.INSTANCE.removeGameEntity(id);
+		}
+		else if (position.y > ProcessingMain.GAME_HEIGHT){
+			EntityManager.INSTANCE.removeGameEntity(id);
+		}
 		
 		return position;
 	}
