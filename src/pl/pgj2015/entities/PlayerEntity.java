@@ -1,5 +1,9 @@
 package pl.pgj2015.entities;
 
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import pl.pgj2015.controller.ActionKey;
@@ -159,6 +163,16 @@ public class PlayerEntity implements GameEntity {
 	public PImage getImage() {
 		PImage currentImage = animation.getCurrentImage();
 		currentImage.resize((int)size.x, (int)size.y);
+		
+		if(isFacingLeft){
+			Image image = currentImage.getImage();
+			AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+			tx.translate(-image.getWidth(null), 0);
+			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+			image = op.filter((BufferedImage) image, null);
+			return new PImage(image);
+		}
+		
 		return currentImage;
 	}
 
